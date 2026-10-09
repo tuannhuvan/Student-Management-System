@@ -86,6 +86,36 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handles student not found exception.
+     *
+     * @param ex StudentNotFoundException instance
+     * @return ProblemDetail with HTTP 404 status
+     */
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ProblemDetail handleStudentNotFoundException(StudentNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("Student Not Found");
+        problem.setProperty("errorCode", "STUDENT_NOT_FOUND");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
+    /**
+     * Handles course not found exception.
+     *
+     * @param ex CourseNotFoundException instance
+     * @return ProblemDetail with HTTP 404 status
+     */
+    @ExceptionHandler(CourseNotFoundException.class)
+    public ProblemDetail handleCourseNotFoundException(CourseNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("Course Not Found");
+        problem.setProperty("errorCode", "COURSE_NOT_FOUND");
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
+    /**
      * Handles unhandled runtime and system exceptions.
      *
      * @param ex Exception instance
